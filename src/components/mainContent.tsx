@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Typewriter from "./typeWritter";
 
 export default function MainContent() {
   return (
@@ -22,8 +23,8 @@ export default function MainContent() {
             className="text-gray-400 text-lg text-center w-[30ch] max-w-[30ch] lg:w-[50ch] lg:max-w-[50ch]"
             id="typing-effect"
           >
-            Transforming Visions into Reality with Cutting-Edge Web Design and
-            Software Development Solutions
+            <Typewriter text="Transforming Visions into Reality with Cutting-Edge Web Design and
+            Software Development Solutions"/>
           </p>
         </div>
 

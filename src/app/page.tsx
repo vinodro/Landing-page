@@ -1,15 +1,26 @@
+"use client";
+
 import GridViewer from "@/components/gridViewer";
 import MainContent from "@/components/mainContent";
 import NavBar from "@/components/navBar";
 import Image from "next/image";
 import Link from "next/link";
+import { useKeenSlider } from "keen-slider/react"
+import React from "react";
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = React.useState(0)
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
+  })
   return (
     <body className="bg-custom bg-[#101010] text-white flex flex-col justify-center items-center font-poppins ">
       <NavBar />
 
-      <div className="w-5rem">
+      <>
         {/* <div className="text-container">
           Hello World, this text will appear letter by letter.
         </div> */}
@@ -58,6 +69,15 @@ export default function Home() {
                 />
               </div>
             ))}
+            <div className="tech-card  sm:hidden">
+                <Image
+                  width={0}
+                  height={0}
+                  src="/docker.svg"
+                  alt="Logo"
+                  style={{ width: "auto", height: "32px" }}
+                />
+              </div>
           </GridViewer>
         </div>
         <div id="about-us" className="home-container pt-60 ">
@@ -337,7 +357,7 @@ export default function Home() {
             <div className="mx-auto max-w-[1340px] px-4 py-8 sm:px-6 lg:me-0 lg:py14 lg:pe-0 lg:ps-8 xl:py-22 overflow-hidden">
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center lg:gap-16">
                 <div className="-mx-6 lg:col-span-2 lg:mx-0">
-                  <div id="keen-slider" className="keen-slider">
+                  <div id="keen-slider"  ref={sliderRef} className="keen-slider">
                     <div
                       className="keen-slider__slide"
                       style={{
@@ -658,6 +678,8 @@ export default function Home() {
 
               <div className="mt-8 flex justify-center gap-4 lg:hidden">
                 <button
+                  disabled={currentSlide === 0}
+                  onClick={()=>instanceRef.current?.prev()}
                   aria-label="Previous slide"
                   id="keen-slider-previous"
                   className="rounded-full border border-brand-light p-3 text-brand-light transition hover:bg-brand-light hover:text-white"
@@ -679,6 +701,10 @@ export default function Home() {
                 </button>
 
                 <button
+                
+              disabled={currentSlide == (instanceRef?.current?.track?.details.slides.length ?? 1) - 1
+              }
+                  onClick={()=>instanceRef.current?.next()}
                   aria-label="Next slide"
                   id="keen-slider-next"
                   className="rounded-full border border-brand-light p-3 text-brand-light transition hover:bg-brand-light hover:text-white"
@@ -703,7 +729,7 @@ export default function Home() {
           </section>
         </div>
         <div id="contact" className="pt-60">
-          <div className="contact bg-gray-200 text-gray-700 rounded-3xl px-6 md:px-8 lg:px-10 w-full py-16 md:py-20 lg:py-24 flex flex-col justify-center items-center gap-10">
+          <div className="home-container contact bg-gray-200 text-gray-700 rounded-3xl px-6 md:px-8 lg:px-10 w-full py-16 md:py-20 lg:py-24 flex flex-col justify-center items-center gap-10">
             <h3 className="text-center text-grey-700 max-w-[1011px] text-3xl md:text-6xl font-medium leading-tight">
               Have an Idea??... Let&apos;s Turn It into Reality with Our Expert
               Development Team!!
@@ -764,7 +790,7 @@ export default function Home() {
                   </a>
                 </li>
               </ul>
-
+              <i className="fa-sharp fa-light fa-user"></i>
               <div className="flex flex-col gap-4 font-light pt-8 sm:p-0">
                 <h2 className="font-medium">Contact</h2>
                 <div>
@@ -807,7 +833,7 @@ export default function Home() {
             </div>
           </footer>
         </div>
-      </div>
+      </>
     </body>
   );
 }
