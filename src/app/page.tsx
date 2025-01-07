@@ -12,7 +12,10 @@ export default function Home() {
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     loop: true,
+    mode: "snap",
     slides: {
+      origin: "center",
+      perView: 1.3,
       spacing: 15,
     },
   });
