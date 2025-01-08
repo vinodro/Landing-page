@@ -52,7 +52,7 @@ export default function NavBar({
         Book A Call
       </a>
 
-      <a href="javascript:void(0);" className="hamburger flex lg:hidden">
+      <a className="hamburger flex lg:hidden">
         <i
           className="fa-solid fa-bars fas fa-2x"
           onClick={() => setToggle((prev) => !prev)}
