@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import '@fontsource/instrument-serif';
+import '@fontsource/poppins';
 import "./globals.css";
 import "keen-slider/keen-slider.min.css"
 

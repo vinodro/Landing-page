@@ -1,6 +1,14 @@
+"use client";
+
 import Image from "next/image";
 
-export default function NavBar() {
+export default function NavBar({
+  toggle,
+  setToggle,
+}: {
+  toggle: boolean;
+  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
     <nav
       id="bg-color"
@@ -16,7 +24,10 @@ export default function NavBar() {
         />
       </a>
 
-      <ul className="nav-links w-full lg:w-auto">
+      <ul
+        className="nav-links w-full lg:w-auto "
+        style={{ display: toggle ? "flex" : "" }}
+      >
         <li className="nav-link ">
           <a href="#about-us">About us</a>
         </li>
@@ -42,6 +53,10 @@ export default function NavBar() {
       </a>
 
       <a href="javascript:void(0);" className="hamburger flex lg:hidden">
+        <i
+          className="fa-solid fa-bars fas fa-2x"
+          onClick={() => setToggle((prev) => !prev)}
+        ></i>
         <span></span>
         <span></span>
         <span></span>

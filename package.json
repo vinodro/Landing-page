@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev  -p 3001 --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/instrument-serif": "^5.1.1",
+    "@fontsource/poppins": "^5.1.1",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "keen-slider": "^6.8.6",

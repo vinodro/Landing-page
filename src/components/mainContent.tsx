@@ -12,20 +12,20 @@ export default function MainContent() {
 
         <div className="absolute w-[20%] aspect-square bg-cyan-400/40 bottom-0 right-0 translate-y-[20%] blur-3xl rounded-full -z-10"></div>
 
-        <h1 className="text-center">
-          <span className="relative text-6xl text-center gradient-text !font-poppins !not-italic">
+        <h1 className="no-pad text-center">
+          <span className="no-pad relative text-6xl text-center gradient-text !font-poppins !not-italic">
             Solutions. Designs. Innovation.
           </span>
         </h1>
 
         <div className="fixed-size">
-          <p
+          <div
             className="text-gray-400 text-lg text-center w-[30ch] max-w-[30ch] lg:w-[50ch] lg:max-w-[50ch]"
             id="typing-effect"
           >
             <Typewriter text="Transforming Visions into Reality with Cutting-Edge Web Design and
             Software Development Solutions"/>
-          </p>
+          </div>
         </div>
 
         <div className="relative flex gap-8 pt-4 md:pt-12">

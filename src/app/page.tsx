@@ -5,23 +5,79 @@ import MainContent from "@/components/mainContent";
 import NavBar from "@/components/navBar";
 import Image from "next/image";
 import Link from "next/link";
+import "@fontsource/instrument-serif";
 import { useKeenSlider } from "keen-slider/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    initial: 0,
-    loop: true,
-    mode: "snap",
-    slides: {
-      origin: "center",
-      perView: 1.3,
-      spacing: 15,
-    },
-  });
+  const [toggle, setToggle] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Update windowWidth on resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+    setToggle(false);
+  }, []);
+
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+    windowWidth < 768
+      ? {
+          initial: 0,
+          loop: true,
+          mode: "snap",
+          slides: {
+            origin: "center",
+            perView: 1.3,
+            spacing: 15,
+          },
+        }
+      : {
+          initial: 0,
+          loop: true,
+          slides: {
+            perView: 1.5,
+            spacing: 15,
+          },
+        }
+  );
+
+  // Update slider instance when windowWidth changes
+  useEffect(() => {
+    if (instanceRef.current) {
+      instanceRef.current.update(
+        windowWidth < 768
+          ? {
+              initial: 0,
+              loop: true,
+              mode: "snap",
+              slides: {
+                origin: "center",
+                perView: 1.3,
+                spacing: 15,
+              },
+            }
+          : {
+              initial: 0,
+              loop: true,
+              slides: {
+                perView: 1.5,
+                spacing: 15,
+              },
+            }
+      );
+    }
+    setToggle(false);
+  }, [windowWidth, instanceRef]);
+
   return (
-    <body className="bg-custom bg-[#101010] text-white flex flex-col justify-center items-center font-poppins ">
-      <NavBar />
+    // <body className="bg-custom bg-[#101010] text-white flex flex-col justify-center items-center font-poppins ">
+    <>
+      <NavBar toggle={toggle} setToggle={setToggle} />
 
       <>
         {/* <div className="text-container">
@@ -63,9 +119,7 @@ export default function Home() {
               "/angular.png",
             ].map((_, index) => (
               <div className="tech-card" key={_ + index}>
-                <Image
-                  width={0}
-                  height={0}
+                <img
                   src={_}
                   alt="Logo"
                   style={{ width: "auto", height: "32px" }}
@@ -351,7 +405,7 @@ export default function Home() {
             <div className="text-center">
               <h1 className="heading">
                 <span className="gradient-text font-normal">What they say</span>
-                about us
+                &nbsp;about us
               </h1>
             </div>
           </div>
@@ -695,9 +749,9 @@ export default function Home() {
                   >
                     <path
                       d="M9 5l7 7-7 7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                     ></path>
                   </svg>
                 </button>
@@ -719,9 +773,9 @@ export default function Home() {
                   >
                     <path
                       d="M9 5l7 7-7 7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                     ></path>
                   </svg>
                 </button>
@@ -838,6 +892,7 @@ export default function Home() {
           </footer>
         </div>
       </>
-    </body>
+      {/* </body> */}
+    </>
   );
 }

@@ -15,7 +15,7 @@ const Typewriter = ({
     let index = 0;
 
     const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + text[index]);
+      setDisplayedText((prev) => prev + (text[index] ?? ""));
       index++;
       if (index === text.length) {
         clearInterval(interval);
@@ -25,7 +25,7 @@ const Typewriter = ({
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [text, speed]);
 
-  return <div className="text-gray-400 text-lg text-center w-[30ch] max-w-[30ch] lg:w-[50ch] lg:max-w-[50ch]">{displayedText}</div>;
+  return <div className="special-width text-gray-400 text-lg text-center w-[30ch] max-w-[30ch] lg:w-[50ch] lg:max-w-[50ch]">{displayedText}</div>;
 };
 
 export default Typewriter;
